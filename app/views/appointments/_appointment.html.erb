@@ -1,0 +1,14 @@
+<div class="bg-gray-800 p-4 rounded-lg mb-4">
+  <div class="flex justify-between items-center">
+    <div>
+      <h3 class="text-lg font-semibold text-amber-500"><%= appointment.name %></h3>
+      <p class="text-gray-400">
+        Serviço: <%= appointment.service.name %> 
+        | Data: <%= I18n.l(appointment.date) %> 
+        | Horário: <%= appointment.time %>
+      </p>
+      <p class="text-gray-300">Telefone: <%= appointment.phone %></p>
+    </div>
+    <span class="text-sm text-gray-500"><%= appointment.created_at.strftime("%H:%M") %></span>
+  </div>
+</div>

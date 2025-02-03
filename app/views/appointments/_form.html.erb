@@ -1,0 +1,47 @@
+<%= turbo_frame_tag "new_appointment" do %>
+    <%= form_with(model: appointment, local: true, data: {turbo_stream: true}) do |f| %>
+    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-800 p-6 rounded-lg">
+        <div class="flex items-center space-x-2 mb-4">
+            <h3 class="text-xl font-semibold">Escolha a Data</h3>
+        </div>
+        <%= f.date_field :date, 
+            class: "w-full bg-gray-700 p-3 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none",
+            data: { 
+                'schedule-target': 'dateInput', 
+                'action': 'change->schedule#filterAvailableTimes' 
+            } %>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg">
+        <div class="flex items-center space-x-2 mb-4">
+            <h3 class="text-xl font-semibold">Escolha o Horário</h3>
+        </div>
+        <%= f.select :time, 
+            @available_times, 
+            { prompt: 'Selecione um horário' },
+            {
+                class: "w-full bg-gray-700 p-3 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none", 
+                data: { 
+                'schedule-target': 'timeSelect' 
+                }
+            } %>
+        </div>
+
+        <div class="md:col-span-2 bg-gray-800 p-6 rounded-lg">
+        <div class="flex items-center space-x-2 mb-4">
+            <h3 class="text-xl font-semibold">Suas Informações</h3>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <%= f.text_field :name, placeholder: "Nome", class: "bg-gray-700 p-3 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" %>
+            <%= f.telephone_field :phone, placeholder: "Telefone", class: "bg-gray-700 p-3 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" %>
+            
+            <%= f.collection_select :service_id, @services, :id, :name_with_price, { prompt: 'Selecione o serviço' }, class: "md:col-span-2 bg-gray-700 p-3 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" %>
+            
+            <%= f.submit "Confirmar Agendamento", class: "md:col-span-2 bg-amber-500 text-gray-900 py-3 rounded-lg font-semibold hover:bg-amber-400 transition" %>
+        </div>
+        </div>
+    </div>
+    <% end %>
+<% end %>

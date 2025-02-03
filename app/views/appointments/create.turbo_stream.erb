@@ -1,0 +1,11 @@
+<%= turbo_stream.replace "new_appointment" do %>
+  <%= render 'form', appointment: Appointment.new %>
+<% end %>
+
+<%= turbo_stream.prepend "appointments" do %>
+  <%= render @appointment %>
+<% end %>
+
+<%= turbo_stream.update "flash" do %>
+  <%= render "shared/flash_messages" %>
+<% end %>
